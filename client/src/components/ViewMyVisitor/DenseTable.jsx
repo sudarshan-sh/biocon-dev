@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from 'react';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -139,6 +140,7 @@ export default function DenseTable() {
   const [openNew, setOpenNew] = React.useState(false);
   const [edit, setEdit] = React.useState(true);
   const [editA, setEditA] = React.useState(true);
+  const [visitors, setVisitors] = React.useState([]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -152,6 +154,16 @@ export default function DenseTable() {
   const changeDisplayNew = () => {
     setEditA(false);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/viewvisitor")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setVisitors(data.viewVisitor);
+      });
+  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -184,7 +196,7 @@ export default function DenseTable() {
                 fontFamily: "Roboto",
                 fontSize: "12px",
                 fontStyle: "normal",
-                padding: "6px 1px",
+                padding: "6px 4px",
                 width: "7%",
                 border: 0,
               }}
@@ -198,7 +210,7 @@ export default function DenseTable() {
                 fontFamily: "Roboto",
                 fontSize: "12px",
                 fontStyle: "normal",
-                padding: "6px 8px",
+                padding: "6px 10px",
                 border: 0,
               }}
             >
@@ -211,7 +223,7 @@ export default function DenseTable() {
                 fontFamily: "Roboto",
                 fontSize: "12px",
                 fontStyle: "normal",
-                padding: "6px 14px",
+                padding: "6px 12px",
                 border: 0,
               }}
             >
@@ -259,7 +271,7 @@ export default function DenseTable() {
             >
               Visitor Type
             </TableCell>
-            <TableCell
+            {/* <TableCell
               align="left"
               style={{
                 fontWeight: 500,
@@ -272,8 +284,8 @@ export default function DenseTable() {
               }}
             >
               Purpose
-            </TableCell>
-            <TableCell
+            </TableCell> */}
+            {/* <TableCell
               align="left"
               style={{
                 fontWeight: 500,
@@ -286,7 +298,7 @@ export default function DenseTable() {
               }}
             >
               Visited
-            </TableCell>
+            </TableCell> */}
             <TableCell
               align="left"
               style={{
@@ -296,7 +308,7 @@ export default function DenseTable() {
                 fontStyle: "normal",
                 padding: "6px 6px",
                 width: "9%",
-                textAlign: "center",
+                textAlign: "left",
                 border: 0,
               }}
             >
@@ -311,7 +323,7 @@ export default function DenseTable() {
                 fontStyle: "normal",
                 padding: "6px 5px",
                 width: "12%",
-                textAlign: "center",
+                textAlign: "left",
                 border: 0,
               }}
             >
@@ -334,13 +346,17 @@ export default function DenseTable() {
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
                 // },
-                "& .css-xn6ruc>:not(style)": {
-                  width: 0,
-                },
+                // "& .css-xn6ruc>:not(style)": {
+                //   width: 0,
+                // },
                 "& .css-yqjoqk-MuiTableCell-root": {},
+                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
+                  width: '92%'
+                }
               }}
               style={{
                 border: 0,
+                padding: "6px 5px",
               }}
             >
               {/* <TextField
@@ -360,6 +376,8 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
+                "& .css-1kxbtff-MuiAutocomplete-root" : {
+                  width: '95%',
                 // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
                 //   width: "126px",
                 //   height: "29px",
@@ -368,7 +386,7 @@ export default function DenseTable() {
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
@@ -392,19 +410,19 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 12px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
-                width: "15%",
+                width: "22%",
               }}
             >
               {/* <TextField
@@ -418,19 +436,19 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
-                width: "15%",
+                width: "24%",
               }}
             >
               {/* <TextField
@@ -444,19 +462,19 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
-                width: "18%",
+                width: "20%",
               }}
             >
               {/* <TextField
@@ -470,15 +488,15 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
@@ -498,15 +516,15 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
@@ -523,64 +541,31 @@ export default function DenseTable() {
                 defaultValue={"Trainee"}
               />
             </TableCell>
-            <TableCell
+            {/* <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
-                // },
               }}
               style={{
                 border: 0,
               }}
             >
-              {/* <TextField
-                align="right"
-                style={{ fontWeight: 500, fontSize: "10px" }}
-              >
-                Purpose
-              </TextField> */}
               <SelectInput options={["Official"]} defaultValue={"Official"} />
             </TableCell>
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
-                // },
-                // "& .css-1j04t4g-MuiAutocomplete-root": {
-                //   width: "80%"
-                // }
               }}
               style={{
                 border: 0,
               }}
             >
-              {/* <TextField
-                align="right"
-                style={{ fontWeight: 500, fontSize: "10px" }}
-              >
-                Visited
-              </TextField> */}
               <SelectInput options={["true", "false"]} defaultValue={"false"} />
-            </TableCell>
+            </TableCell> */}
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
@@ -590,7 +575,7 @@ export default function DenseTable() {
                 // },
                 // "& .css-zwvhff-MuiTableCell-root": {
                 //   padding: '6px 9px'
-                // }
+                }
               }}
               style={{
                 border: 0,
@@ -607,15 +592,15 @@ export default function DenseTable() {
             <TableCell
               sx={{
                 padding: "6px 2px",
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
+                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
                 //   height: "29px",
                 //   padding: "6px 8px",
                 //   alignItems: "center",
                 //   display: "flex",
                 //   flexDirection: "row",
                 //   boxSizing: "border-box",
-                // },
+                },
               }}
               style={{
                 border: 0,
@@ -630,7 +615,7 @@ export default function DenseTable() {
               <SelectInput />
             </TableCell>
           </TableRow>
-          {rows.map((row) => (
+          {visitors.map((row) => (
             <>
               <TableRow
                 key={row.name}
@@ -642,8 +627,9 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 13px",
+                    padding: "6px 15px",
                     border: 0,
+                    textAlign: 'left',
                   }}
                   onClick={handleOpen}
                 >
@@ -654,7 +640,7 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 1px",
+                    padding: "6px 12px",
                     textAlign: "left",
                     width: "8%",
                     border: 0,
@@ -668,8 +654,8 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 11px",
-                    width: "7%",
+                    padding: "6px 9px",
+                    width: "18%",
                     textAlign: "left",
                     border: 0,
                   }}
@@ -682,8 +668,8 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 18px",
-                    width: "9%",
+                    padding: "6px 10px",
+                    width: "15%",
                     textAlign: "left",
                     border: 0,
                   }}
@@ -696,7 +682,7 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 6px",
+                    padding: "6px 10px",
                     textAlign: "left",
                     width: "10%",
                     border: 0,
@@ -710,9 +696,10 @@ export default function DenseTable() {
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
-                    padding: "6px 6px",
-                    textAlign: "left",
+                    padding: "6px",
+                    textAlign: "center",
                     border: 0,
+                    width: '9%',
                   }}
                   onClick={handleOpen}
                 >
@@ -724,27 +711,27 @@ export default function DenseTable() {
                     fontWeight: 400,
                     fontSize: "10px",
                     padding: "6px 8px",
-                    textAlign: "left",
+                    textAlign: "center",
                     border: 0,
                   }}
                   onClick={handleOpen}
                 >
                   {row.visitor_type}
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   align="right"
                   style={{
                     fontWeight: 400,
                     fontSize: "10px",
                     padding: "6px 15px",
-                    textAlign: "left",
+                    textAlign: "center",
                     border: 0,
                   }}
                   onClick={handleOpen}
                 >
                   {row.purpose}
-                </TableCell>
-                <TableCell
+                </TableCell> */}
+                {/* <TableCell
                   align="right"
                   style={{
                     fontWeight: 400,
@@ -756,7 +743,7 @@ export default function DenseTable() {
                   onClick={handleOpen}
                 >
                   {row.visited}
-                </TableCell>
+                </TableCell> */}
                 <TableCell
                   align="right"
                   style={{

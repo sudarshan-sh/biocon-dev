@@ -28,7 +28,7 @@ config.items = {
     id: 'detail.3',
     Country: 'USA',
     partitionKey: 'USA',
-    lastName: 'Sudarshan',
+    lastName: 'Diwakar',
   },
 }
 
