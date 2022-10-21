@@ -1,0 +1,394 @@
+.view_table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  /* width: 1040px; */
+  width: 1070px;
+  height: 1004px;
+
+  /* Light/Background/Paper
+
+Reflects the background.paper variable from the theme object
+*/
+  background: #ffffff;
+  box-shadow: 0px 0px 0px 1px #e0e0e0;
+  border-radius: 4px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+  z-index: 0;
+  margin-bottom: 7rem;
+}
+.view_table_inner {
+  width: 97%;
+}
+
+.date_visitor {
+  align-items: center;
+}
+
+.date_picker {
+  display: flex;
+  width: 82%;
+}
+.reset_filter {
+  display: flex;
+  height: 32px;
+}
+
+.rows_pages {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2px 0px;
+  gap: 26px;
+
+  /* width: 1040px; */
+  width: 1070px;
+  height: 52px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 0px #e0e0e0;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.rows_per_page {
+  width: 130px;
+  height: 20px;
+  margin-right: 13rem;
+  /* Typography/Caption */
+
+  /* font-family: "Roboto"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 166%;
+  /* identical to box height, or 20px */
+
+  letter-spacing: 0.4px;
+
+  /* Light/Text/Secondary */
+
+  color: rgba(0, 0, 0, 0.6);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.rows_pages1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2px 0px;
+  gap: 8px;
+  justify-content: right;
+
+  /* width: 1040px; */
+  width: 565px;
+  height: 27px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 0px #e0e0e0;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.rows_per_page1 {
+  width: 91px;
+  height: 20px;
+  /* margin-right: 13rem; */
+  /* Typography/Caption */
+
+  /* font-family: "Roboto"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 166%;
+  /* identical to box height, or 20px */
+
+  letter-spacing: 0.4px;
+
+  /* Light/Text/Secondary */
+
+  color: rgba(0, 0, 0, 0.6);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.select_row_per_page {
+  width: 13%;
+}
+
+.visibility-icon {
+  cursor: pointer;
+  color: gray;
+  display: flex;
+  margin-top: 10px;
+}
+.visibility-icon:hover {
+  color: rgb(21, 103, 226);
+}
+
+.visitor_det {
+  margin-left: 1.5rem;
+  display: flex;
+}
+.visitor_det1 {
+  margin-left: 1.5rem;
+  display: flex;
+  margin-top: -1.5rem;
+}
+
+.visitor_date {
+  width: 112px;
+  height: 21px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  /* identical to box height, or 21px */
+
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Primary */
+
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.modal_grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: 1400px;
+  height: 718.34px;
+  left: 260px;
+  top: 130px;
+
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+.btn_update {
+  width: 75%;
+}
+
+.printpass_btn {
+  margin-top: 2rem;
+}
+
+.print_btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  width: 116px;
+  height: 30px;
+
+  /* Light/Primary/Main
+
+Reflects the Primary/Main variable from the theme object
+*/
+  background: #1976d2;
+  /* Elevation/2 */
+
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.reset_filter_btn {
+  display: flex;
+  height: 32px;
+  margin: 17px;
+}
+.person_info {
+  padding: 15px;
+}
+
+.person_details {
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.person_key {
+  width: 165px;
+  height: 23px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 160%;
+  /* or 22px */
+
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Primary */
+
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  text-align: start;
+}
+
+.person_value {
+  width: 170px;
+  height: 23px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 160%;
+  /* or 22px */
+
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Primary */
+
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  text-align: start;
+}
+
+.img_person {
+  /* position: absolute;
+  width: 453px;
+  height: 420.34px;
+  left: 27px;
+  top: 51px;
+  border-radius: 4px; */
+  position: absolute;
+  width: 595px;
+  height: 450.34px;
+  left: -40px;
+  top: 40px;
+  border-radius: 4px;
+}
+.img_person img {
+  height: 636px;
+  width: 599px;
+  clip-path: inset(33px 119px 210px 71px);
+  object-fit: cover;
+}
+
+.scan_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  position: absolute;
+  width: 111.42px;
+  height: 35.75px;
+  left: 205.4px;
+  /* top: 469.04px; */
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50px;
+}
+
+.person_scan_info {
+  width: 608px;
+  height: 375px;
+}
+
+.face_id_info {
+  display: flex;
+  padding: 0.75rem;
+  gap: 1rem;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.9)
+    ),
+    #2e7d32;
+  border-radius: 4px;
+}
+
+.person_face_info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  padding: 1rem;
+}
+
+.person_face_key {
+  width: 165px;
+  height: 23px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 160%;
+  letter-spacing: 0.15px;
+  color: rgba(0, 0, 0, 0.87);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  text-align: start;
+}
+
+.person_face_value {
+  width: 170px;
+  height: 23px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 160%;
+  letter-spacing: 0.15px;
+  color: rgba(0, 0, 0, 0.87);
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  text-align: start;
+}
