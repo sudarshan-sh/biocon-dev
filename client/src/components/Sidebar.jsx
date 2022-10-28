@@ -14,10 +14,12 @@ const Sidebar = () => {
   const iconSize = "16px";
   const content = [
     {
+      id: 1,
       name: "Direct Walk-IN",
       component: <PersonAdd sx={{ fontSize: iconSize }} />,
     },
     {
+      id: 2,
       name: "View My Visitor",
       component: <VisibilityOutlined sx={{ fontSize: iconSize }} />,
     },
@@ -34,6 +36,7 @@ const Sidebar = () => {
     //   component: <DateRangeOutlined sx={{ fontSize: iconSize }} />,
     // },
     {
+      id: 3,
       name: "Temporary Pass",
       component: <AccountCircleOutlined sx={{ fontSize: iconSize }} />,
     },
@@ -42,10 +45,12 @@ const Sidebar = () => {
     //   component: <People sx={{ fontSize: iconSize }} />,
     // },
     {
+      id: 4,
       name: "Settings",
       component: <SettingsOutlined sx={{ fontSize: iconSize }} />,
     },
     {
+      id: 5,
       name: "Logout",
       component: <LogoutOutlined sx={{ fontSize: iconSize }} />,
     },

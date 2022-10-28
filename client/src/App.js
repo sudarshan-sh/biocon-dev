@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Visitee from "./pages/Visitee";
 import ViewMyVisitor from "./components/ViewMyVisitor/index";
+import TemporaryPass from "./components/TemporaryPass/index";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -16,7 +17,8 @@ function App() {
       <Routes>
         <Route index element={<AddVisit />} />
         <Route path="visitee" element={<Visitee />} />
-        <Route path="view-my-visitor" element={<ViewMyVisitor />} />
+        <Route path="viewmyvisitor" element={<ViewMyVisitor />} />
+        <Route path="temporarypass" element={<TemporaryPass />} />
       </Routes>
     </div>
   );

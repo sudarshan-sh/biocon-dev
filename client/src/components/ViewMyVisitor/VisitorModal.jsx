@@ -23,9 +23,12 @@ import { styled } from "@mui/material/styles";
 import { FormControlLabel, Radio } from "@mui/material";
 import TextInput from "../AddVisit/TextInput";
 import SelectInput from "../AddVisit/SelectInput";
-import personData from "./data";
+import personData from "../helper/data";
 import person from "../../assets/images/person.png";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useEffect } from "react";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -49,11 +52,25 @@ const VisitorModal = ({
   modalRows,
   handleOpen,
   changeDisplayNew,
+  data,
+  data1,
 }) => {
+  const [searchType, setSearchType] = React.useState("check_in");
+  const [editData, setEditData] = useState(false);
+
+  const handleSearchType = (e) => {
+    setSearchType(e.target.value);
+  };
+
   const closeAllModal = () => {
     setOpen(false);
     setOpenNew(false);
   };
+
+  const updateData = () => {
+    
+  }
+
   return (
     // <Modal
     //   open={open}
@@ -106,7 +123,7 @@ const VisitorModal = ({
 
             <VisibilityIcon sx={{ fontSize: "10px" }} />
             <span className="ml-1">View My Visitor / </span>
-            <span className="ml-1 text-gray-500 mr-2">+91 98567 85432</span>
+            <span className="ml-1 text-gray-500 mr-2">{data[0].name}</span>
           </h5>
         </div>
       </div>
@@ -405,52 +422,40 @@ const VisitorModal = ({
                       </div>
 
                       <div>
-                        {personData.map((person) => {
-                          return (
-                            <div className="person_face_info">
-                              <span className="person_details">
-                                <p className="person_face_key">Visit ID: </p>{" "}
-                                <p className="person_face_value">
-                                  {person.visit_id}
-                                </p>
-                              </span>
-                              <hr />
-                              <span className="person_details">
-                                <p className="person_face_key">Name: </p>{" "}
-                                <p className="person_face_value">
-                                  {person.name}
-                                </p>
-                              </span>
-                              <span className="person_details">
-                                <p className="person_face_key">Mob Number: </p>{" "}
-                                <p className="person_face_value">
-                                  {person.mob_num}
-                                </p>
-                              </span>
-                              <span className="person_details">
-                                <p className="person_face_key">Company: </p>{" "}
-                                <p className="person_face_value">
-                                  {person.company}
-                                </p>
-                              </span>
-                              <span className="person_details">
-                                <p className="person_face_key">
-                                  Visitor Type:{" "}
-                                </p>{" "}
-                                <p className="person_face_value">
-                                  {person.visitor_type}
-                                </p>
-                              </span>
-                              <hr />
-                              <span className="person_details">
-                                <p className="person_face_key">To Meet: </p>{" "}
-                                <p className="person_face_value">
-                                  {person.to_meet}
-                                </p>
-                              </span>
-                            </div>
-                          );
-                        })}
+                        <div className="person_face_info">
+                          <span className="person_details">
+                            <p className="person_face_key">Visit ID: </p>{" "}
+                            <p className="person_face_value">
+                              {data.pass_number}
+                            </p>
+                          </span>
+                          <hr />
+                          <span className="person_details">
+                            <p className="person_face_key">Name: </p>{" "}
+                            <p className="person_face_value">{data.name}</p>
+                          </span>
+                          <span className="person_details">
+                            <p className="person_face_key">Mob Number: </p>{" "}
+                            <p className="person_face_value">
+                              {data.phone_number}
+                            </p>
+                          </span>
+                          <span className="person_details">
+                            <p className="person_face_key">Company: </p>{" "}
+                            <p className="person_face_value">{data.company}</p>
+                          </span>
+                          <span className="person_details">
+                            <p className="person_face_key">Visitor Type: </p>{" "}
+                            <p className="person_face_value">
+                              {data.visitor_type}
+                            </p>
+                          </span>
+                          <hr />
+                          <span className="person_details">
+                            <p className="person_face_key">To Meet: </p>{" "}
+                            <p className="person_face_value">{data.to_meet}</p>
+                          </span>
+                        </div>
                       </div>
 
                       <div>
@@ -473,8 +478,22 @@ const VisitorModal = ({
         </div>
       </div>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            "& .css-mhc70k-MuiGrid-root": {
+              marginLeft: "-8px",
+            },
+          }}
+        >
+          <Grid
+            item
+            xs={8}
+            style={{
+              maxWidth: "63.666667%",
+            }}
+          >
             <Item
               sx={{
                 height: "250px",
@@ -492,7 +511,7 @@ const VisitorModal = ({
                   <span className="mr-5 ml-4 text-gray-500">
                     Search by type :{" "}
                   </span>
-                  <div className="flex items-center  mx-2">
+                  {/* <div className="flex items-center  mx-2">
                     <FormControlLabel
                       value="self"
                       sx={{
@@ -523,6 +542,28 @@ const VisitorModal = ({
                       control={<Radio />}
                       label="Others"
                     />
+                  </div> */}
+                  <div className="visit_status text-gray-500">
+                    <input
+                      id="check_in"
+                      name="check_in"
+                      type="radio"
+                      value="check_in"
+                      onChange={handleSearchType}
+                      checked={searchType === "check_in"}
+                    />
+                    <label htmlFor="check_in">Check-IN</label>
+                  </div>
+                  <div className="visit_status text-gray-500">
+                    <input
+                      id="check_out"
+                      name="check_out"
+                      type="radio"
+                      value="check_out"
+                      onChange={handleSearchType}
+                      checked={searchType === "check_out"}
+                    />
+                    <label htmlFor="check_out">Check-OUT</label>
                   </div>
                 </div>
                 <div className="reset_filter_btn">
@@ -625,88 +666,88 @@ const VisitorModal = ({
                     </TableHead>
 
                     <TableBody>
-                      {modalRows.map((row) => (
-                        <>
-                          <TableRow
-                            key={row.name}
-                            sx={{
-                              "&:last-child td, &:last-child th": {
-                                border: 0,
-                              },
+                      {/* {modalRows.map((row) => ( */}
+                      <>
+                        <TableRow
+                          key={data.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": {
+                              border: 0,
+                            },
+                          }}
+                        >
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "10px",
+                              padding: "6px 13px",
+                              border: 0,
                             }}
+                            onClick={handleOpen}
                           >
-                            <TableCell
-                              component="th"
-                              scope="row"
-                              style={{
-                                fontWeight: 400,
-                                fontSize: "10px",
-                                padding: "6px 13px",
-                                border: 0,
-                              }}
-                              onClick={handleOpen}
-                            >
-                              {row.si_num}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{
-                                fontWeight: 400,
-                                fontSize: "10px",
-                                padding: "6px 11px",
-                                width: "7%",
-                                textAlign: "left",
-                                border: 0,
-                              }}
-                              onClick={handleOpen}
-                            >
-                              {row.name}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{
-                                fontWeight: 400,
-                                fontSize: "10px",
-                                padding: "6px 6px",
-                                textAlign: "left",
-                                width: "9%",
-                                border: 0,
-                              }}
-                              onClick={handleOpen}
-                            >
-                              {row.date}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{
-                                fontWeight: 400,
-                                fontSize: "10px",
-                                padding: "6px 7px",
-                                textAlign: "left",
-                                width: "7%",
-                                border: 0,
-                              }}
-                              onClick={handleOpen}
-                            >
-                              {row.type}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{
-                                fontWeight: 400,
-                                fontSize: "10px",
-                                padding: "6px 8px",
-                                textAlign: "left",
-                                width: "10%",
-                                border: 0,
-                              }}
-                              onClick={handleOpen}
-                            >
-                              {row.location}
-                            </TableCell>
-                          </TableRow>
-                        </>
-                      ))}
+                            {data.si_num}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "10px",
+                              padding: "6px 11px",
+                              width: "7%",
+                              textAlign: "left",
+                              border: 0,
+                            }}
+                            onClick={handleOpen}
+                          >
+                            {data.name}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "10px",
+                              padding: "6px 6px",
+                              textAlign: "left",
+                              width: "9%",
+                              border: 0,
+                            }}
+                            onClick={handleOpen}
+                          >
+                            {new Date().toLocaleDateString()}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "10px",
+                              padding: "6px 7px",
+                              textAlign: "left",
+                              width: "7%",
+                              border: 0,
+                            }}
+                            onClick={handleOpen}
+                          >
+                            {data.type}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "10px",
+                              padding: "6px 8px",
+                              textAlign: "left",
+                              width: "10%",
+                              border: 0,
+                            }}
+                            onClick={handleOpen}
+                          >
+                            {data.location}
+                          </TableCell>
+                        </TableRow>
+                      </>
+                      {/* ))} */}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -714,56 +755,145 @@ const VisitorModal = ({
             </Item>
           </Grid>
 
-          <Grid item xs={4}>
-            <Item>
-              {personData.map((person) => {
-                return (
-                  <div className="person_info">
-                    <span className="person_details">
-                      <p className="person_key">Name: </p>{" "}
-                      <p className="person_value">{person.name}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Mob Number: </p>{" "}
-                      <p className="person_value">{person.mob_num}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Email: </p>{" "}
-                      <p className="person_value">{person.email}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Government ID Type: </p>{" "}
-                      <p className="person_value">{person.govtid_type}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Government ID Number: </p>{" "}
-                      <p className="person_value">{person.govtid_number}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Company: </p>{" "}
-                      <p className="person_value">{person.company}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Visit Status: </p>{" "}
-                      <p className="person_value">{person.visit_status}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Visit ID: </p>{" "}
-                      <p className="person_value">{person.visit_id}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">Visitor Type: </p>{" "}
-                      <p className="person_value">{person.visitor_type}</p>
-                    </span>
-                    <span className="person_details">
-                      <p className="person_key">To Meet: </p>{" "}
-                      <p className="person_value">{person.to_meet}</p>
-                    </span>
-                  </div>
-                );
-              })}
-            </Item>
-          </Grid>
+          {/* <Grid item xs={4}>
+            <Item> */}
+          {/* {personData.map((person) => {
+                return ( */}
+          <div className="person_info">
+            <span className="person_details">
+              <p className="person_key">Name: </p>{" "}
+              <p className="person_value">
+                <input type="text" disabled={!editData} value={data[0].name} />
+                {/* {data[0].name} */}
+                <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Mob Number: </p>{" "}
+              <p className="person_value">
+              <input type="text" disabled={!editData} value={data[0].phone_number} />
+                <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Email: </p>{" "}
+              <p className="person_value">
+                <input type="text" disabled={!editData} value={data[0].email} />
+                <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Government ID Type: </p>{" "}
+              <p className="person_value">
+                <input type="text" disabled={!editData} value={data[0].gov_id_type} />
+                <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Government ID Number: </p>{" "}
+              <p className="person_value">
+                {/* {data[0].gov_id_number} */}
+              <input type="text" disabled={!editData} value={data[0].gov_id_number} />
+              <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Company: </p>{" "}
+              <p className="person_value">{data[0].company}
+              </p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Visit Status: </p>{" "}
+              <p className="person_value">{data1.visit_status}</p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Visit ID: </p>{" "}
+              <p className="person_value">{data[0].pass_number}</p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">Visitor Type: </p>{" "}
+              <p className="person_value">{data[0].visitor_type}</p>
+            </span>
+            <span className="person_details">
+              <p className="person_key">To Meet: </p>{" "}
+              <p className="person_value">
+                {/* {data.to_meet}{" "} */}
+                <input type="text" disabled={!editData} value={data.to_meet} />
+                <BorderColorIcon
+                  style={{
+                    width: "1em",
+                    height: "0.5em",
+                    fontSize: "1.5rem",
+                    color: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setEditData(true)}
+                />
+              </p>
+            </span>
+            <div className="update_btn">
+              <Stack spacing={2} direction="row">
+                <Button
+                  variant="contained"
+                  style={{
+                    height: "88%",
+                  }}
+                  onClick={updateData}
+                >
+                  UPDATE
+                </Button>
+              </Stack>
+            </div>
+          </div>
+          {/* );
+              })} */}
+          {/* </Item>
+          </Grid> */}
         </Grid>
       </Box>
     </Box>

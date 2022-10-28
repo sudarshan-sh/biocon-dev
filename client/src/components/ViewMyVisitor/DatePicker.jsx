@@ -10,12 +10,12 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function MaterialUIPickers({ label, current }) {
-  const [value, setValue] = React.useState(new Date());
+export default function MaterialUIPickers({ name, value, label, current, handleChange }) {
+  // const [value, setValue] = React.useState(new Date());
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (newValue) => {
+  //   setValue(newValue);
+  // };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -48,12 +48,14 @@ export default function MaterialUIPickers({ label, current }) {
         /> */}
         <DatePicker
             label={label}
-            value={current ? dayjs() : null}
+            // value={current ? dayjs() : null}
             inputFormat="DD/MM/YYYY"
             // onChange={(newValue) => {
             //     setValue(newValue);
             // }}
             onChange={handleChange}
+            value={value}
+            name={name}
             renderInput={(params) => (
             <TextField
             sx={{

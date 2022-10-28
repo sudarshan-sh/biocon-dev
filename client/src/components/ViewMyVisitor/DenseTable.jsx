@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "./index.css";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -24,7 +25,7 @@ import { styled } from "@mui/material/styles";
 import { FormControlLabel, Radio } from "@mui/material";
 import TextInput from "../AddVisit/TextInput";
 import SelectInput from "../AddVisit/SelectInput";
-import personData from "./data";
+import personData from "../helper/data";
 import VisitorModal from "./VisitorModal";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -135,14 +136,40 @@ const modalRows = [
   ),
 ];
 
-export default function DenseTable() {
-  const [open, setOpen] = React.useState(false);
-  const [openNew, setOpenNew] = React.useState(false);
-  const [edit, setEdit] = React.useState(true);
-  const [editA, setEditA] = React.useState(true);
-  const [visitors, setVisitors] = React.useState([]);
+export default function DenseTable({
+  fromDate,
+  toDate,
+  setFilteredVisitors,
+  setVisitors,
+  filteredVisitors,
+  visitors,
+  copyFilteredVisitors,
+  setCopyFilteredVisitors,
+}) {
+  const [open, setOpen] = useState(false);
+  const [openNew, setOpenNew] = useState(false);
+  const [edit, setEdit] = useState(true);
+  const [editA, setEditA] = useState(true);
+  // const [visitors, setVisitors] = useState([]);
+  // const [filteredVisitors, setFilteredVisitors] = useState([]);
+  const [modalData, setModalData] = useState([]);
+  const [modalData1, setModalData1] = useState([]);
+  const [searched, setSearched] = useState([]);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (data) => {
+    console.log(data.visitors_list);
+    // fetch(`http://localhost:5000/api/viewsinglevisitor?id=${id}`)
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+    setModalData(data.visitors_list);
+    setModalData1(data);
+    setOpen(true);
+  };
+
   const handleClose = () => setOpen(false);
 
   const handleOpenNew = () => setOpenNew(true);
@@ -155,16 +182,130 @@ export default function DenseTable() {
     setEditA(false);
   };
 
+  const requestSearchPass = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.visitors_list[keyname].pass_number.toString().includes(event.target.value)
+        ) {
+          console.log(row.visitors_list[keyname].pass_number);
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+    // }
+  };
+  const requestSearchMob = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.visitors_list[keyname].phone_number.includes(event.target.value)
+        ) {
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+  };
+
+  const requestSearchName = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.visitors_list[keyname].name.toLowerCase().includes(event.target.value.toLowerCase())
+        ) {
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+  };
+
+  const requestSearchMeet = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.to_meet_employee_id.toString().includes(event.target.value)
+        ) {
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+  };
+
+  const requestSearchDept = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.building_name.toLowerCase().includes(event.target.value.toLowerCase())
+        ) {
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+  };
+
+  const requestSearchVisType = (event) => {
+    let filteredVisitors1 = [];
+    copyFilteredVisitors.forEach((row) => {
+      Object.keys(row.visitors_list).map(function (keyname, index) {
+        if (
+          row.visitors_list[keyname].visitor_type.toLowerCase().includes(event.target.value.toLowerCase())
+        ) {
+          filteredVisitors1.push(row);
+        }
+      });
+    });
+    setFilteredVisitors([...filteredVisitors1]);
+  };
+  // const cancelSearch = () => {
+  //   setSearched("");
+  //   requestSearch(searched);
+  // };
+
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/api/viewvisitors")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setVisitors(data);
+  //       setFilteredVisitors(data);
+  //     });
+  // }, []);
   useEffect(() => {
-    fetch("http://localhost:5000/viewvisitor")
+    fetch(
+      `https://8000-prabal01pat-bioconfacer-5nq1bla1xl5.ws-us73.gitpod.io/view_visitors?from_date=${new Intl.DateTimeFormat(
+        "en-GB"
+      ).format(fromDate)}&to_date=${new Intl.DateTimeFormat("en-GB").format(
+        toDate
+      )}`
+    )
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        setVisitors(data.viewVisitor);
+        console.log(data);
+        setVisitors(data);
+        setFilteredVisitors(data);
+        setCopyFilteredVisitors(data);
       });
+    console.log(filteredVisitors);
   }, []);
-
+  // for (const item of filteredVisitors) {
+  //   console.log(item);
+  //   for (const data of item.visitors_list) {
+  //     console.log(data);
+  //   }
+  // }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
@@ -183,7 +324,7 @@ export default function DenseTable() {
                 fontSize: "12px",
                 fontStyle: "normal",
                 padding: "6px 7px",
-                width: "17%",
+                width: "13%",
                 border: 0,
               }}
             >
@@ -243,7 +384,7 @@ export default function DenseTable() {
             >
               Department
             </TableCell>
-            <TableCell
+            {/* <TableCell
               align="left"
               style={{
                 fontWeight: 500,
@@ -256,7 +397,7 @@ export default function DenseTable() {
               }}
             >
               Visit Status
-            </TableCell>
+            </TableCell> */}
             <TableCell
               align="left"
               style={{
@@ -351,8 +492,8 @@ export default function DenseTable() {
                 // },
                 "& .css-yqjoqk-MuiTableCell-root": {},
                 "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
-                  width: '92%'
-                }
+                  width: "92%",
+                },
               }}
               style={{
                 border: 0,
@@ -371,21 +512,21 @@ export default function DenseTable() {
               >
                 Pass Num
               </TextField> */}
-              <TextInput placeholder="Search" />
+              <TextInput placeholder="Search" onChange={requestSearchPass} />
             </TableCell>
             <TableCell
               sx={{
                 padding: "6px 2px",
-                "& .css-1kxbtff-MuiAutocomplete-root" : {
-                  width: '95%',
-                // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-                //   width: "126px",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                "& .css-1kxbtff-MuiAutocomplete-root": {
+                  width: "95%",
+                  // "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
+                  //   width: "126px",
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
@@ -405,24 +546,24 @@ export default function DenseTable() {
               >
                 Mob Num
               </TextField> */}
-              <TextInput placeholder="Search" />
+              <TextInput placeholder="Search" onChange={requestSearchMob} />
             </TableCell>
             <TableCell
               sx={{
                 padding: "6px 2px",
                 "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
-                  width: "92%",
-                //   height: "29px",
-                //   padding: "6px 12px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                  width: "85%",
+                  //   height: "29px",
+                  //   padding: "6px 12px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
                 border: 0,
-                width: "22%",
+                width: "20%",
               }}
             >
               {/* <TextField
@@ -431,45 +572,23 @@ export default function DenseTable() {
               >
                 Name
               </TextField> */}
-              <TextInput placeholder="Search" />
+              <TextInput
+                placeholder="Search"
+                onChange={requestSearchName}
+                // onCancelSearch={() => cancelSearch()}
+              />
             </TableCell>
             <TableCell
               sx={{
                 padding: "6px 2px",
                 "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
-                  width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
-                },
-              }}
-              style={{
-                border: 0,
-                width: "24%",
-              }}
-            >
-              {/* <TextField
-                align="right"
-                style={{ fontWeight: 500, fontSize: "10px" }}
-              >
-                To Meet
-              </TextField> */}
-              <TextInput placeholder="Search" />
-            </TableCell>
-            <TableCell
-              sx={{
-                padding: "6px 2px",
-                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
-                  width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                  width: "85%",
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
@@ -481,49 +600,64 @@ export default function DenseTable() {
                 align="right"
                 style={{ fontWeight: 500, fontSize: "10px" }}
               >
-                Department
+                To Meet
               </TextField> */}
-              <TextInput placeholder="Search" />
+              <TextInput placeholder="Search" onChange={requestSearchMeet} />
             </TableCell>
             <TableCell
               sx={{
                 padding: "6px 2px",
-                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                "& .css-v2arep-MuiFormControl-root-MuiTextField-root": {
                   width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
                 border: 0,
+                width: "15%",
               }}
             >
               {/* <TextField
                 align="right"
                 style={{ fontWeight: 500, fontSize: "10px" }}
               >
-                Visit Status
+                Department
               </TextField> */}
-              <SelectInput
-                options={["pending", "completed"]}
-                defaultValue={"pending"}
-              />
+              <TextInput placeholder="Search" onChange={requestSearchDept} />
             </TableCell>
+            {/* <TableCell
+              sx={{
+                padding: "6px 2px",
+                "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
+                  width: "92%",
+                },
+              }}
+              style={{
+                border: 0,
+              }}
+            >
+            // Visit Status
+              <SelectInput
+                options={["Pending", "Completed"]}
+                defaultValue={"Pending"}
+              />
+            </TableCell> */}
             <TableCell
               sx={{
                 padding: "6px 2px",
                 "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
                   width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
@@ -539,6 +673,7 @@ export default function DenseTable() {
               <SelectInput
                 options={["Consultant", "Trainee"]}
                 defaultValue={"Trainee"}
+                onChange={requestSearchVisType}
               />
             </TableCell>
             {/* <TableCell
@@ -566,16 +701,16 @@ export default function DenseTable() {
                 padding: "6px 2px",
                 "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
                   width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
-                // },
-                // "& .css-zwvhff-MuiTableCell-root": {
-                //   padding: '6px 9px'
-                }
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
+                  // },
+                  // "& .css-zwvhff-MuiTableCell-root": {
+                  //   padding: '6px 9px'
+                },
               }}
               style={{
                 border: 0,
@@ -594,12 +729,12 @@ export default function DenseTable() {
                 padding: "6px 2px",
                 "& .css-aja8sj-MuiFormControl-root-MuiTextField-root": {
                   width: "92%",
-                //   height: "29px",
-                //   padding: "6px 8px",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   boxSizing: "border-box",
+                  //   height: "29px",
+                  //   padding: "6px 8px",
+                  //   alignItems: "center",
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   boxSizing: "border-box",
                 },
               }}
               style={{
@@ -615,110 +750,119 @@ export default function DenseTable() {
               <SelectInput />
             </TableCell>
           </TableRow>
-          {visitors.map((row) => (
-            <>
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 15px",
-                    border: 0,
-                    textAlign: 'left',
-                  }}
-                  onClick={handleOpen}
+
+          {filteredVisitors &&
+            filteredVisitors.map((row) =>
+              row.visitors_list.map((elem) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  onClick={() => handleOpen(row)}
                 >
-                  {row.pass_num}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 12px",
-                    textAlign: "left",
-                    width: "8%",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.mob_num}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 9px",
-                    width: "18%",
-                    textAlign: "left",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.name}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 10px",
-                    width: "15%",
-                    textAlign: "left",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.to_meet}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 10px",
-                    textAlign: "left",
-                    width: "10%",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.dept}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px",
-                    textAlign: "center",
-                    border: 0,
-                    width: '9%',
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.visit_status}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 8px",
-                    textAlign: "center",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.visitor_type}
-                </TableCell>
-                {/* <TableCell
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 15px",
+                      border: 0,
+                      textAlign: "left",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.pass_num} */}
+                    {elem.pass_number}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 12px",
+                      textAlign: "left",
+                      width: "8%",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.mob_num} */}
+                    {elem.phone_number}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 9px",
+                      width: "18%",
+                      textAlign: "left",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.name} */}
+                    {elem.name}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 10px",
+                      width: "15%",
+                      textAlign: "left",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.to_meet} */}
+                    {row.to_meet_employee_id}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 10px",
+                      textAlign: "left",
+                      width: "10%",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.dept} */}
+                    {row.building_name}
+                  </TableCell>
+                  {/* <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "10px",
+                      padding: "6px",
+                      textAlign: "center",
+                      border: 0,
+                      width: "9%",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {row.visit_status}
+                  </TableCell> */}
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      padding: "6px 8px",
+                      textAlign: "center",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {row.visitor_type} */}
+                    {elem.visitor_type}
+                  </TableCell>
+                  {/* <TableCell
                   align="right"
                   style={{
                     fontWeight: 400,
@@ -731,7 +875,7 @@ export default function DenseTable() {
                 >
                   {row.purpose}
                 </TableCell> */}
-                {/* <TableCell
+                  {/* <TableCell
                   align="right"
                   style={{
                     fontWeight: 400,
@@ -744,44 +888,45 @@ export default function DenseTable() {
                 >
                   {row.visited}
                 </TableCell> */}
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 11px",
-                    textAlign: "left",
-                    width: "11%",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.visit_from}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "10px",
-                    padding: "6px 10px",
-                    textAlign: "left",
-                    border: 0,
-                  }}
-                  onClick={handleOpen}
-                >
-                  {row.visit_until}
-                </TableCell>
-                <VisibilityIcon
-                  onClick={handleOpen}
-                  className="visibility-icon"
-                  sx={{
-                    width: "0.75em",
-                    height: "0.5em",
-                  }}
-                />
-              </TableRow>
-            </>
-          ))}
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "10px",
+                      padding: "6px 11px",
+                      textAlign: "left",
+                      width: "11%",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {row.date_of_issue}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "10px",
+                      padding: "6px 10px",
+                      textAlign: "left",
+                      border: 0,
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* {new Date().toLocaleDateString()} */}
+                    {row.valid_until}
+                  </TableCell>
+                  <VisibilityIcon
+                    onClick={handleOpen}
+                    className="visibility-icon"
+                    sx={{
+                      // width: "0.75em",
+                      height: "0.5em",
+                    }}
+                  />
+                </TableRow>
+              ))
+            )}
         </TableBody>
       </Table>
       <Modal
@@ -810,6 +955,8 @@ export default function DenseTable() {
           style={style}
           modalRows={modalRows}
           changeDisplayNew={changeDisplayNew}
+          data={modalData && modalData}
+          data1={modalData1 && modalData1}
         />
       </Modal>
     </TableContainer>

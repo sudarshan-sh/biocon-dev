@@ -123,11 +123,11 @@ async function queryContainer() {
   // query to return all children in a family
   // Including the partition key value of country in the WHERE filter results in a more efficient query
   const querySpec = {
-    query: 'SELECT VALUE r.children FROM root r WHERE r.partitionKey = @country',
+    query: 'SELECT VALUE r.children FROM root r WHERE r.partitionKey = @visitor_type',
     parameters: [
       {
-        name: '@country',
-        value: 'USA'
+        name: '@visitor_type',
+        value: 'Trainee'
       }
     ]
   }

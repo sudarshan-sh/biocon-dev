@@ -3,7 +3,14 @@ import { Autocomplete, Chip, InputAdornment, TextField } from "@mui/material";
 import { fontSize } from "@mui/system";
 import React from "react";
 
-const TextInput = ({ onChange, label, hasChip,placeholder, chipLabel, ...props }) => {
+const TextInput = ({
+  onChange,
+  label,
+  hasChip,
+  placeholder,
+  chipLabel,
+  ...props
+}) => {
   return (
     <Autocomplete
       id=""
@@ -12,6 +19,9 @@ const TextInput = ({ onChange, label, hasChip,placeholder, chipLabel, ...props }
       onChange={onChange}
       freeSolo
       size="small"
+      getOptionLabel={(option) =>
+        typeof option === "string" || option instanceof String ? option : ""
+      }
       renderInput={(params) => (
         <>
           <TextField
@@ -27,6 +37,7 @@ const TextInput = ({ onChange, label, hasChip,placeholder, chipLabel, ...props }
               sx: { fontSize: 12 },
             }}
             label={label}
+            onChange={onChange}
             // InputProps={{
             //   sx: { fontSize: 12 },
             //   startAdornment: hasChip && (

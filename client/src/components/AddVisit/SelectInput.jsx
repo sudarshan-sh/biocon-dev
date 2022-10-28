@@ -14,7 +14,7 @@ export default function SelectInput({
 
   ...props
 }) {
-  console.log(sx);
+  // console.log(sx);
   return (
     <div>
       <Autocomplete

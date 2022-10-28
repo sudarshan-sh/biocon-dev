@@ -1,0 +1,243 @@
+.employee_temp_pass {
+  height: 1800px;
+}
+
+.emp_info {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 2rem;
+}
+
+/* .img_container {
+  width: 110px;
+  height: 175px;
+} */
+/* .img_container img {
+  max-width: 92%;
+  max-height: 85%;
+  border-radius: 4px;
+} */
+
+.emp_img {
+  height: 175px;
+  width: 130px;
+  display: flex;
+  object-fit: cover;
+  border-radius: 4px;
+  transform: scale(0.9);
+}
+
+.emp_data {
+  display: flex;
+  gap: 6rem;
+  margin: 17px;
+}
+
+@media screen and (max-width: 669px) {
+  .emp_data {
+    display: grid;
+    grid-template-rows: 5fr 5fr;
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 670px) and (max-width: 925px) {
+  .emp_data {
+    display: grid;
+    grid-template-rows: 5fr 5fr;
+    gap: 0.1rem;
+  }
+}
+
+@media (min-width: 926px) and (max-width: 1092px) {
+  .emp_data {
+    display: flex;
+    gap: 1.2rem;
+  }
+}
+
+.emp_det1 {
+  display: grid;
+}
+
+.emp_det1 span {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.emp_det1 span p {
+  /* width: 192px; */
+  height: 16px;
+  color: rgba(0, 0, 0, 0.47);
+}
+
+.printpass_btn {
+  margin-top: 2rem;
+  margin-left: 0.5rem;
+}
+
+.temp_pass_emp {
+  margin-top: 1.5rem;
+}
+.person_info1 {
+  padding: 15px;
+}
+
+.person_details1 {
+  display: flex;
+  /* justify-content: space-around; */
+  height: 30px;
+}
+.person_key1 {
+  width: 165px;
+  height: 23px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 160%;
+  /* or 22px */
+
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Primary */
+
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  text-align: start;
+}
+
+.person_value1 {
+  width: 170px;
+  height: 23px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 160%;
+  /* or 22px */
+
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Primary */
+
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  text-align: start;
+}
+
+.visitor_det {
+  margin-left: 1.5rem;
+  display: grid;
+}
+
+.verify_num {
+  height: 23px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 133.4%;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.verify_num_code {
+  width: 425px;
+  height: 28px;
+
+  /* Typography/Subtitle 1 */
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 175%;
+  /* identical to box height, or 28px */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.15px;
+
+  /* Light/Text/Secondary */
+
+  color: rgba(0, 0, 0, 0.6);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.otp_inputs {
+  width: 550px;
+  height: 80px;
+  padding: 25px;
+}
+.otp_input_no {
+  border: 1px solid darkgrey;
+}
+.resend_otp {
+  display: flex;
+  justify-content: flex-start !important;
+  gap: 1rem;
+  font-size: 12px;
+}
+.resend_otp button {
+  text-decoration: underline;
+  /* cursor: pointer; */
+  color: #30abd5;
+}
+
+.person_scan_info1 {
+  width: 574px;
+  /* height: 375px; */
+  padding: 2rem;
+}
+
+.face_id_info1 {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.9)
+    ),
+    #2e7d32;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+}
+
+.pass_note {
+  width: 270px;
+  height: 26px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0.46px;
+  color: #212121;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-left: 2rem;
+}
